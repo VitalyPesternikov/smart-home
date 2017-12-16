@@ -13,7 +13,7 @@ public class DoorScenarioRunner implements EventHandler {
             // событие от двери
             for (Room room : smartHome.getRooms()) {
                 for (Door door : room.getDoors()) {
-                    if (door.getId().equals(event.getObjectId()) && door.getRoom().getName().equals("hall")) {
+                    if (door.getId().equals(event.getObjectId()) && door.getId().equals("4")) {
                         if (event.getType() == SensorEventType.DOOR_CLOSED) {
                             makeDoorsAndLights(smartHome, false);
                         } else {
