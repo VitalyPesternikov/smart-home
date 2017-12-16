@@ -2,15 +2,20 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="lightEventHandler" class="ru.sbt.mipt.oop.LightEventHandler"/>
-    <bean id="doorEventHandler" class="ru.sbt.mipt.oop.DoorEventHandler"/>
-    <bean id="doorScenarioRunner" class="ru.sbt.mipt.oop.DoorScenarioRunner"/>
+    <!--<bean id="lightEventHandler" class="ru.sbt.mipt.oop.LightEventHandler"/>-->
+    <!--<bean id="doorEventHandler" class="ru.sbt.mipt.oop.DoorEventHandler"/>-->
+    <!--<bean id="doorScenarioRunner" class="ru.sbt.mipt.oop.DoorScenarioRunner"/>-->
+    <bean id="readingFile" class="ru.sbt.mipt.oop.ReadingFile"/>
 
-    <bean id="smartHome" class="ru.sbt.mipt.oop.ReadingFile" factory-method="read" >
-        <constructor-arg value="0"/>
+
+    <bean id="smartHome" class="ru.sbt.mipt.oop.SmartHome" factory-method="createSmartHome" factory-bean="readingFile">
+        <constructor-arg value="smart-home-1.js"/>
     </bean>
 
-    <bean id="sensorEventObserver" class="ru.sbt.mipt.oop.SensorEventObserver">
+    <bean id="processingEvents" class="ru.sbt.mipt.oop.ProcessingEvents">
+        <constructor-arg>
+            <ref bean="smartHome"/>
+        </constructor-arg>
     </bean>
 
 </beans>
