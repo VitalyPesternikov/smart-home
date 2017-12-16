@@ -9,8 +9,8 @@ public class Application {
         ReadingFile readingFile = new ReadingFile();
         SmartHome smartHome = readingFile.createSmartHome("smart-home-1.js");
         // начинаем цикл обработки событий
-        HandlingEvent handlingEvent = new HandlingEvent(smartHome);
-        handlingEvent.handle();
+        ProcessingEvents processingEvents = new ProcessingEvents(smartHome);
+        processingEvents.process();
 
     }
 
