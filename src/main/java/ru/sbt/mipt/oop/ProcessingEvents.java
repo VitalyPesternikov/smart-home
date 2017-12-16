@@ -18,6 +18,7 @@ public class ProcessingEvents {
         SensorEventObserver sensorEventObserver = new SensorEventObserver();
         sensorEventObserver.addEventHandler(new LightEventHandler());
         sensorEventObserver.addEventHandler(new DoorEventHandler());
+        sensorEventObserver.addEventHandler(new DoorScenarioRunner());
 
         while (event != null) {
             System.out.println("Got event: " + event);
