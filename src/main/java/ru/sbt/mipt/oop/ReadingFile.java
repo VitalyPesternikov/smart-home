@@ -12,8 +12,8 @@ import java.nio.file.Paths;
 public class ReadingFile {
     Gson gson = new Gson();
     String json;
-    public SmartHome createsmarthome() throws IOException{
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
+    public SmartHome createSmartHome(String fileName) throws IOException{
+        String json = new String(Files.readAllBytes(Paths.get(fileName)));
         return gson.fromJson(json, SmartHome.class);
     }
 }
