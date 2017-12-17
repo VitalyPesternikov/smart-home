@@ -18,4 +18,20 @@
         </constructor-arg>
     </bean>
 
+    <bean id="lightEventHandler" class="ru.sbt.mipt.oop.LightEventHandler"/>
+
+    <bean id="doorEventHandler" class="ru.sbt.mipt.oop.DoorEventHandler"/>
+
+    <bean id="doorScenarioRunner" class="ru.sbt.mipt.oop.DoorScenarioRunner"/>
+
+    <bean id="sensorEventObserver" class="ru.sbt.mipt.oop.SensorEventObserver">
+        <constructor-arg>
+            <list>
+                <ref bean="doorEventHandler"/>
+                <ref bean="lightEventHandler"/>
+                <ref bean="doorScenarioRunner"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
 </beans>

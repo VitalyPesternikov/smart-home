@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import static ru.sbt.mipt.oop.SensorEventType.*;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
@@ -15,10 +17,11 @@ public class ProcessingEvents {
     }
 
     public void process() {
-        SensorEventObserver sensorEventObserver = new SensorEventObserver();
-        sensorEventObserver.addEventHandler(new LightEventHandler());
-        sensorEventObserver.addEventHandler(new DoorEventHandler());
-        sensorEventObserver.addEventHandler(new DoorScenarioRunner());
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+        SensorEventObserver sensorEventObserver = (SensorEventObserver)context.getBean("sensorEventObserver");
+//        sensorEventObserver.addEventHandler(new LightEventHandler());
+//        sensorEventObserver.addEventHandler(new DoorEventHandler());
+//        sensorEventObserver.addEventHandler(new DoorScenarioRunner());
 
         while (event != null) {
             System.out.println("Got event: " + event);

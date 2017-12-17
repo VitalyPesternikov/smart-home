@@ -9,6 +9,13 @@ import java.util.Collection;
 public class SensorEventObserver {
     private Collection<EventHandler> handlers = new ArrayList<>();
 
+    public SensorEventObserver(Collection<EventHandler> handlers) {
+        this.handlers = handlers;
+    }
+
+    public SensorEventObserver() {
+    }
+
     public void addEventHandler(EventHandler eventHandler) {
         handlers.add(eventHandler);
     }
