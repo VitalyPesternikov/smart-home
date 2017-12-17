@@ -18,6 +18,7 @@ public class AlarmSystemAlarm implements AlarmSystemState{
     @Override
     public void enterPassword(String password) {
         if (password.equals("PassWord")) alarmSystem.setAlarmSystemState(new AlarmSystemOff(alarmSystem));
+        else alarmSystem.setAlarmSystemState(new AlarmSystemAlarm(alarmSystem));
     }
 
     @Override
