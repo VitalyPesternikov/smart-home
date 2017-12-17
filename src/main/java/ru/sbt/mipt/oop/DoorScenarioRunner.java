@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import java.util.Iterator;
+
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
@@ -9,15 +11,19 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 public class DoorScenarioRunner implements EventHandler {
     @Override
     public void handle(SmartHome smartHome, SensorEvent event) {
+        Iterator roomIter = smartHome.getRoomsIterator();
         if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
             // событие от двери
-            for (Room room : smartHome.getRooms()) {
-                for (Door door : room.getDoors()) {
+            while (roomIter.hasNext()) {
+                Room room = (Room)roomIter.next();
+                Iterator doorIter = room.getDoorsIterator();
+                while (doorIter.hasNext()) {
+                    Door door = (Door)doorIter.next();
                     if (door.getId().equals(event.getObjectId()) && door.getId().equals("4")) {
                         if (event.getType() == SensorEventType.DOOR_CLOSED) {
-                            makeDoorsAndLights(smartHome, false);
+                            makeDoorsAndLightsOn(smartHome, false);
                         } else {
-                            makeDoorsAndLights(smartHome, true);
+                            makeDoorsAndLightsOn(smartHome, true);
                         }
                     }
                 }
@@ -25,12 +31,18 @@ public class DoorScenarioRunner implements EventHandler {
         }
     }
 
-    private void makeDoorsAndLights(SmartHome smartHome, boolean b) {
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
+    private void makeDoorsAndLightsOn(SmartHome smartHome, boolean b) {
+        Iterator roomIter = smartHome.getRoomsIterator();
+        while (roomIter.hasNext()) {
+            Room room = (Room)roomIter.next();
+            Iterator doorIter = room.getDoorsIterator();
+            Iterator lightIter = room.getLightsIterator();
+            while (doorIter.hasNext()) {
+                Door door = (Door)doorIter.next();
                 door.setOpen(b);
             }
-            for (Light light : room.getLights()) {
+            while (lightIter.hasNext()) {
+                Light light = (Light)lightIter.next();
                 light.setOn(b);
             }
         }

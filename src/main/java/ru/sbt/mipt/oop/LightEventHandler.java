@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import java.util.Iterator;
+
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
@@ -9,10 +11,14 @@ import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 public class LightEventHandler implements EventHandler {
     @Override
     public void handle(SmartHome smartHome, SensorEvent event) {
+        Iterator roomIter = smartHome.getRoomsIterator();
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
                 // событие от источника света
-                for (Room room : smartHome.getRooms()) {
-                    for (Light light : room.getLights()) {
+                while (roomIter.hasNext()) {
+                    Room room = (Room)roomIter.next();
+                    Iterator lightIter = room.getLightsIterator();
+                    while (lightIter.hasNext()) {
+                        Light light = (Light)lightIter.next();
                         if (light.getId().equals(event.getObjectId())) {
                             if (event.getType() == LIGHT_ON) {
                                 light.setOn(true);
